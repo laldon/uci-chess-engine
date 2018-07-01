@@ -253,14 +253,14 @@ int Eval::evaluate(Board &b) {
 
     // Bishop pair bonus
     if ((pieces[WHITE][BISHOPS] & LIGHT) && (pieces[WHITE][BISHOPS] & DARK)) {
-        material[MG][WHITE] += BISHOP_PAIR_VALUE;
-        valueMg += BISHOP_PAIR_VALUE;
-        valueEg += BISHOP_PAIR_VALUE;
+        material[MG][WHITE] += BISHOP_PAIR_VALUE[MG];
+        valueMg += BISHOP_PAIR_VALUE[MG];
+        valueEg += BISHOP_PAIR_VALUE[EG];
     }
     if ((pieces[BLACK][BISHOPS] & LIGHT) && (pieces[BLACK][BISHOPS] & DARK)) {
-        material[MG][BLACK] += BISHOP_PAIR_VALUE;
-        valueMg -= BISHOP_PAIR_VALUE;
-        valueEg -= BISHOP_PAIR_VALUE;
+        material[MG][BLACK] += BISHOP_PAIR_VALUE[MG];
+        valueMg -= BISHOP_PAIR_VALUE[MG];
+        valueEg -= BISHOP_PAIR_VALUE[EG];
     }
 
     // Tempo bonus

@@ -233,7 +233,7 @@ constexpr int pieceSquareTable[2][6][32] = {
 };
 
 //-------------------------Material eval constants------------------------------
-constexpr int BISHOP_PAIR_VALUE = 56;
+constexpr int BISHOP_PAIR_VALUE[2] = {45, 56};
 constexpr int TEMPO_VALUE = 16;
 
 // Material imbalance terms
