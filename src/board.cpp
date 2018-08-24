@@ -20,11 +20,12 @@
 #include <cstring>
 #include <random>
 #include <string>
+
+#include "attacks.h"
 #include "board.h"
 #include "bbinit.h"
 #include "eval.h"
 #include "uci.h"
-
 
 constexpr uint64_t WHITE_KSIDE_PASSTHROUGH_SQS = indexToBit(5) | indexToBit(6);
 constexpr uint64_t WHITE_QSIDE_PASSTHROUGH_SQS = indexToBit(1) | indexToBit(2) | indexToBit(3);
@@ -46,11 +47,6 @@ void initZobristTable() {
     startPosZobristKey = b.getZobristKey();
     delete[] mailbox;
 }
-
-// Magic tables, initialized in bbinit.cpp
-extern uint64_t *attackTable;
-extern MagicInfo magicBishops[64];
-extern MagicInfo magicRooks[64];
 
 // Precalculated bitboard tables
 extern uint64_t inBetweenSqs[64][64];
@@ -594,7 +590,7 @@ void Board::getPseudoLegalChecks(MoveList &checks, int color) {
     while (tempPawns) {
         int stsq = bitScanForward(tempPawns);
         tempPawns &= tempPawns - 1;
-        uint64_t xrays = getXRayPieceMap(color, kingSq, color, indexToBit(stsq));
+        uint64_t xrays = getXRayPieceMap(color, kingSq, indexToBit(stsq));
         // If moving the pawn caused a new xray piece to attack the king
         if (!(xrays & invAttackMap)) {
             // Every legal move of this pawn is a legal check
@@ -649,7 +645,7 @@ void Board::getPseudoLegalChecks(MoveList &checks, int color) {
         knights &= knights-1;
         uint64_t nSq = getKnightSquares(stsq);
         // Get any bishops, rooks, queens attacking king after knight has moved
-        uint64_t xrays = getXRayPieceMap(color, kingSq, color, indexToBit(stsq), 0);
+        uint64_t xrays = getXRayPieceMap(color, kingSq, indexToBit(stsq), 0);
         // If still no xrayers are giving check, then we have no discovered
         // check. Otherwise, every move by this piece is a (discovered) checking
         // move
@@ -666,7 +662,7 @@ void Board::getPseudoLegalChecks(MoveList &checks, int color) {
         int stsq = bitScanForward(bishops);
         bishops &= bishops-1;
         uint64_t bSq = getBishopSquares(stsq, occ);
-        uint64_t xrays = getXRayPieceMap(color, kingSq, color, indexToBit(stsq), 0);
+        uint64_t xrays = getXRayPieceMap(color, kingSq, indexToBit(stsq), 0);
         if (!(xrays & potentialXRay))
             bSq &= bAttackMap;
 
@@ -679,7 +675,7 @@ void Board::getPseudoLegalChecks(MoveList &checks, int color) {
         int stsq = bitScanForward(rooks);
         rooks &= rooks-1;
         uint64_t rSq = getRookSquares(stsq, occ);
-        uint64_t xrays = getXRayPieceMap(color, kingSq, color, indexToBit(stsq), 0);
+        uint64_t xrays = getXRayPieceMap(color, kingSq, indexToBit(stsq), 0);
         if (!(xrays & potentialXRay))
             rSq &= rAttackMap;
 
@@ -1027,8 +1023,7 @@ void Board::addCastlesToList(MoveList &moves, int color) {
 
 // Get the attack map of all potential x-ray pieces (bishops, rooks, queens)
 // after a blocker has been removed.
-uint64_t Board::getXRayPieceMap(int color, int sq, int blockerColor,
-    uint64_t blockerStart, uint64_t blockerEnd) {
+uint64_t Board::getXRayPieceMap(int color, int sq, uint64_t blockerStart, uint64_t blockerEnd) {
     uint64_t occ = getOccupancy();
     occ &= ~blockerStart;
     occ |= blockerEnd;
@@ -1161,7 +1156,7 @@ bool Board::isCheckMove(int color, Move m) {
         removedBlockers |= indexToBit(epVictimSquare(color^1, epCaptureFile));
 
     // Get any bishops, rooks, queens attacking king after piece has moved
-    uint64_t xrays = getXRayPieceMap(color, kingSq, color, removedBlockers, indexToBit(getEndSq(m)));
+    uint64_t xrays = getXRayPieceMap(color, kingSq, removedBlockers, indexToBit(getEndSq(m)));
     // If there is an xray piece attacking the king square after the piece has
     // moved, we have discovered check
     return (bool) (xrays & xrayPieces);
@@ -1306,7 +1301,7 @@ int Board::getSEE(int color, int sq) {
             break;
         attackers ^= single; // remove used attacker
         used |= single;
-        attackers |= getXRayPieceMap(WHITE, sq, color, used, 0) | getXRayPieceMap(BLACK, sq, color, used, 0);
+        attackers |= getXRayPieceMap(WHITE, sq, used, 0) | getXRayPieceMap(BLACK, sq, used, 0);
         single = getLeastValuableAttacker(attackers, color, piece);
     } while (single);
 
@@ -1455,31 +1450,23 @@ uint64_t Board::getBPawnCaptures(uint64_t pawns) {
 }
 
 inline uint64_t Board::getKnightSquares(int single) {
-    return KNIGHTMOVES[single];
+    return knightAttacks(single);
 }
 
 uint64_t Board::getBishopSquares(int single, uint64_t occ) {
-    uint64_t *attTableLoc = magicBishops[single].table;
-    occ &= magicBishops[single].mask;
-    occ *= magicBishops[single].magic;
-    occ >>= magicBishops[single].shift;
-    return attTableLoc[occ];
+    return bishopAttacks(single, occ);
 }
 
 uint64_t Board::getRookSquares(int single, uint64_t occ) {
-    uint64_t *attTableLoc = magicRooks[single].table;
-    occ &= magicRooks[single].mask;
-    occ *= magicRooks[single].magic;
-    occ >>= magicRooks[single].shift;
-    return attTableLoc[occ];
+    return rookAttacks(single, occ);
 }
 
 uint64_t Board::getQueenSquares(int single, uint64_t occ) {
-    return getBishopSquares(single, occ) | getRookSquares(single, occ);
+    return queenAttacks(single, occ);
 }
 
 uint64_t Board::getKingSquares(int single) {
-    return KINGMOVES[single];
+    return kingAttacks(single);
 }
 
 inline uint64_t Board::getOccupancy() {
