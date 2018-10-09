@@ -116,7 +116,7 @@ constexpr int pieceSquareTable[2][6][32] = {
 { // Knights
 -116,-41,-34,-30,
 -32,-22, -7,  8,
--10,  2, 14, 25,
+-10,  4, 14, 25,
   8,  7, 26, 30,
   1,  6, 20, 24,
 -11,  5,  6, 16,
@@ -179,7 +179,7 @@ constexpr int pieceSquareTable[2][6][32] = {
 { // Knights
 -70,-35,-25,-17,
 -20,  0,  4,  8,
- -4,  5, 13, 18,
+ -4,  6, 13, 18,
   4,  9, 18, 25,
  -2,  9, 16, 24,
  -8,  3,  7, 17,
@@ -231,7 +231,7 @@ constexpr int pieceSquareTable[2][6][32] = {
 
 //-------------------------Material eval constants------------------------------
 constexpr int BISHOP_PAIR_VALUE = 58;
-constexpr int TEMPO_VALUE = 19;
+constexpr int TEMPO_VALUE = 20;
 
 // Material imbalance terms
 constexpr int OWN_OPP_IMBALANCE[2][5][5] = {
@@ -403,9 +403,9 @@ constexpr Score OPP_KING_DIST = E(0, 7);
 constexpr Score DOUBLED_PENALTY = E(-3, -18);
 // Isolated pawns
 constexpr Score ISOLATED_PENALTY = E(-18, -11);
-constexpr Score ISOLATED_SEMIOPEN_PENALTY = E(-3, -9);
+constexpr Score ISOLATED_SEMIOPEN_PENALTY = E(-4, -9);
 // Backward pawns
-constexpr Score BACKWARD_PENALTY = E(-13, -9);
+constexpr Score BACKWARD_PENALTY = E(-14, -10);
 constexpr Score BACKWARD_SEMIOPEN_PENALTY = E(-14, -10);
 // Undefended pawns that are not backwards or isolated
 constexpr Score UNDEFENDED_PAWN_PENALTY = E(-7, -2);
