@@ -347,21 +347,21 @@ constexpr int KING_THREAT_MULTIPLIER[4] = {8, 5, 7, 4};
 constexpr int KING_THREAT_SQUARE[4] = {8, 11, 9, 10};
 constexpr int KING_DEFENSELESS_SQUARE = 22;
 constexpr int KS_PAWN_FACTOR = 11;
-constexpr int KING_PRESSURE = 3;
-constexpr int KS_KING_PRESSURE_FACTOR = 12;
-constexpr int KS_NO_QUEEN = -57;
+constexpr int KING_PRESSURE = 4;
+constexpr int KS_KING_PRESSURE_FACTOR = 11;
+constexpr int KS_NO_QUEEN = -60;
 constexpr int KS_BASE = -3;
-constexpr int SAFE_CHECK_BONUS[4] = {64, 22, 60, 53};
+constexpr int SAFE_CHECK_BONUS[4] = {66, 22, 60, 53};
 
 // Minor pieces
 // A penalty for each own pawn that is on a square of the same color as your bishop
-constexpr Score BISHOP_PAWN_COLOR_PENALTY = E(-3, -4);
+constexpr Score BISHOP_PAWN_COLOR_PENALTY = E(-3, -5);
 constexpr Score BISHOP_RAMMED_PAWN_COLOR_PENALTY = E(-6, -8);
 // Minors shielded by own pawn in front
 constexpr Score SHIELDED_MINOR_BONUS = E(14, 0);
 // A bonus for strong outpost knights
 constexpr Score KNIGHT_OUTPOST_BONUS = E(29, 22);
-constexpr Score KNIGHT_OUTPOST_PAWN_DEF_BONUS = E(24, 8);
+constexpr Score KNIGHT_OUTPOST_PAWN_DEF_BONUS = E(25, 9);
 constexpr Score KNIGHT_POTENTIAL_OUTPOST_BONUS = E(10, 13);
 constexpr Score KNIGHT_POTENTIAL_OUTPOST_PAWN_DEF_BONUS = E(14, 17);
 // A smaller bonus for bishops
@@ -372,7 +372,7 @@ constexpr Score BISHOP_POTENTIAL_OUTPOST_PAWN_DEF_BONUS = E(15, 5);
 
 // Rooks
 constexpr Score ROOK_OPEN_FILE_BONUS = E(41, 13);
-constexpr Score ROOK_SEMIOPEN_FILE_BONUS = E(24, 1);
+constexpr Score ROOK_SEMIOPEN_FILE_BONUS = E(24, 2);
 constexpr Score ROOK_PAWN_RANK_THREAT = E(1, 12);
 
 // Threats
@@ -383,7 +383,7 @@ constexpr Score MINOR_ROOK_THREAT = E(-73, -32);
 constexpr Score MINOR_QUEEN_THREAT = E(-73, -43);
 constexpr Score ROOK_QUEEN_THREAT = E(-85, -43);
 
-constexpr Score LOOSE_PAWN = E(-11, 0);
+constexpr Score LOOSE_PAWN = E(-11, -1);
 constexpr Score LOOSE_MINOR = E(-16, -9);
 
 // Pawn structure
@@ -400,7 +400,7 @@ constexpr Score OWN_KING_DIST = E(0, 3);
 constexpr Score OPP_KING_DIST = E(0, 7);
 
 // Doubled pawns
-constexpr Score DOUBLED_PENALTY = E(-3, -18);
+constexpr Score DOUBLED_PENALTY = E(-4, -18);
 // Isolated pawns
 constexpr Score ISOLATED_PENALTY = E(-18, -11);
 constexpr Score ISOLATED_SEMIOPEN_PENALTY = E(-4, -9);
