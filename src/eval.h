@@ -144,14 +144,14 @@ constexpr int pieceSquareTable[2][6][32] = {
  -5,  0,  0,  0
 },
 { // Queens
--29,-21,-15,-10,
--16,-21, -7, -6,
- -8, -3,  0,  2,
- -5, -3, -3, -3,
- -3, -3, -3, -3,
- -6,  5, -1, -2,
--14,  1,  3,  2,
--19,-16,-10,  2
+-26,-18,-12, -9,
+-13,-18, -4, -3,
+ -5,  0,  3,  5,
+ -2,  0,  0,  0,
+  0,  0,  0,  0,
+ -3,  8,  2,  1,
+-11,  4,  6,  5,
+-16,-13, -7,  5
 },
 { // Kings
 -37,-32,-34,-45,
@@ -207,14 +207,14 @@ constexpr int pieceSquareTable[2][6][32] = {
   0,  0,  0,  0
 },
 { // Queens
--18, -9, -1, -1,
- -9,  5, 10, 16,
- -2, 13, 18, 22,
-  0, 16, 20, 26,
-  0, 16, 20, 24,
- -4,  4,  8, 10,
--19,-14,-12, -8,
--26,-23,-23,-18
+-15, -6,  2,  2,
+ -6,  8, 13, 19,
+  1, 16, 21, 25,
+  3, 19, 23, 29,
+  3, 19, 23, 27,
+ -1,  7, 11, 13,
+-16,-11, -9, -5,
+-23,-20,-20,-15
 },
 { // Kings
 -68,-18,-14, -7,
@@ -231,7 +231,7 @@ constexpr int pieceSquareTable[2][6][32] = {
 
 //-------------------------Material eval constants------------------------------
 constexpr int BISHOP_PAIR_VALUE = 58;
-constexpr int TEMPO_VALUE = 18;
+constexpr int TEMPO_VALUE = 19;
 
 // Material imbalance terms
 constexpr int OWN_OPP_IMBALANCE[2][5][5] = {
@@ -261,7 +261,7 @@ constexpr int KNIGHT_CLOSED_BONUS[2] = {4, 8};
 // SPACE_BONUS[0][1] = behind own pawn, center files
 // SPACE_BONUS[1][0] = in front of opp pawn, not center files
 // SPACE_BONUS[1][1] = in front of opp pawn, center files
-constexpr int SPACE_BONUS[2][2] = {{11, 30}, {0, 11}};
+constexpr int SPACE_BONUS[2][2] = {{11, 30}, {1, 11}};
 
 // Mobility tables
 constexpr int mobilityTable[2][5][28] = {
@@ -270,14 +270,14 @@ constexpr int mobilityTable[2][5][28] = {
 { // Knights
 -59, -7, 11, 24, 32, 36, 41, 46, 51},
 { // Bishops
--47,-26, -3,  8, 19, 23, 26, 29, 31, 33, 39, 43, 47, 50},
+-47,-26, -3,  7, 18, 22, 26, 29, 31, 33, 39, 43, 47, 50},
 { // Rooks
 -90,-47,-19, -5,  0,  5,  7, 12, 15, 18, 20, 22, 24, 26, 28},
 { // Queens
 -100,-80,-60,-39,-30,-18,-11, -8, -5, -3, -1,  2,  5,  7,
  10, 12, 15, 17, 19, 21, 23, 25, 26, 27, 29, 30, 31, 32},
 { // Kings
--29,  9, 23, 16, 12,  6,  8, -1, -2}
+-29,  9, 23, 16, 12,  6,  8,  0,  0}
 },
 
 // Endgame
@@ -292,7 +292,7 @@ constexpr int mobilityTable[2][5][28] = {
 -108,-82,-66,-44,-26,-17,-11, -2,  4, 10, 15, 18, 20, 23,
  25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51},
 { // Kings
--49,-22, -6, 18, 21, 11, 24, 19, -4}
+-49,-22, -6, 18, 21, 11, 24, 19,  0}
 }
 };
 
@@ -308,9 +308,9 @@ constexpr int CASTLING_RIGHTS_VALUE[3] = {0, 24, 64};
 // The value of a pawn shield per pawn. First rank value is used for the
 // penalty when the pawn is missing.
 constexpr int PAWN_SHIELD_VALUE[4][8] = {
-    {-12, 23, 27, 12,  5,  5, -5,  0}, // open h file, h2, h3, ...
-    {-18, 37, 23, -8, -4,  0,  2,  0}, // g/b file
-    {-13, 38,  3, -5, -5, -3,  3,  0}, // f/c file
+    {-12, 23, 26, 12,  5,  5, -5,  0}, // open h file, h2, h3, ...
+    {-18, 36, 22, -8, -4,  0,  2,  0}, // g/b file
+    {-13, 37,  3, -5, -5, -3,  3,  0}, // f/c file
     { -4, 13, 10,  8, -4,-10, -5,  0}  // d/e file
 };
 // Array for pawn storm values. Rank 1 of open is used for penalty
@@ -339,7 +339,7 @@ constexpr int PAWN_STORM_VALUE[3][4][8] = {
 },
 };
 // Penalty when the enemy king can use a storming pawn as protection
-constexpr int PAWN_STORM_SHIELDING_KING = -126;
+constexpr int PAWN_STORM_SHIELDING_KING = -125;
 
 // Scale factor for pieces attacking opposing king
 constexpr int KS_ARRAY_FACTOR = 128;
@@ -351,7 +351,7 @@ constexpr int KING_PRESSURE = 3;
 constexpr int KS_KING_PRESSURE_FACTOR = 12;
 constexpr int KS_NO_QUEEN = -57;
 constexpr int KS_BASE = -3;
-constexpr int SAFE_CHECK_BONUS[4] = {62, 22, 60, 53};
+constexpr int SAFE_CHECK_BONUS[4] = {64, 22, 60, 53};
 
 // Minor pieces
 // A penalty for each own pawn that is on a square of the same color as your bishop
@@ -405,8 +405,8 @@ constexpr Score DOUBLED_PENALTY = E(-3, -18);
 constexpr Score ISOLATED_PENALTY = E(-18, -11);
 constexpr Score ISOLATED_SEMIOPEN_PENALTY = E(-3, -9);
 // Backward pawns
-constexpr Score BACKWARD_PENALTY = E(-12, -9);
-constexpr Score BACKWARD_SEMIOPEN_PENALTY = E(-13, -10);
+constexpr Score BACKWARD_PENALTY = E(-13, -9);
+constexpr Score BACKWARD_SEMIOPEN_PENALTY = E(-14, -10);
 // Undefended pawns that are not backwards or isolated
 constexpr Score UNDEFENDED_PAWN_PENALTY = E(-7, -2);
 // Pawn phalanxes
