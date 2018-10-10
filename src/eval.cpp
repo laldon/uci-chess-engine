@@ -347,9 +347,9 @@ int Eval::evaluate(Board &b) {
     whiteSpace2 &= whiteSafeSpace & ~whiteSpace & ~allPawns;
     int whiteSpaceScore = (SPACE_BONUS[0][1] * count(whiteSpace & CENTER_FILES) + SPACE_BONUS[0][0] * count(whiteSpace & ~CENTER_FILES)
                          + SPACE_BONUS[1][1] * count(whiteSpace2 & CENTER_FILES) + SPACE_BONUS[1][0] * count(whiteSpace2 & ~CENTER_FILES))
-                            * whiteSpaceWeight * whiteSpaceWeight / 512;
-    valueMg += whiteSpaceScore;
-    valueEg += whiteSpaceScore / 2;
+                         * whiteSpaceWeight * whiteSpaceWeight / 512;
+    valueMg += whiteSpaceScore * 2;
+    valueEg += whiteSpaceScore;
 
     uint64_t blackSafeSpace = ~ei.attackMaps[WHITE][PAWNS] & (ei.fullAttackMaps[BLACK] | ~ei.fullAttackMaps[WHITE]);
     uint64_t blackSpace = pieces[BLACK][PAWNS] << 8;
@@ -362,9 +362,9 @@ int Eval::evaluate(Board &b) {
     blackSpace2 &= blackSafeSpace & ~blackSpace & ~allPawns;
     int blackSpaceScore = (SPACE_BONUS[0][1] * count(blackSpace & CENTER_FILES) + SPACE_BONUS[0][0] * count(blackSpace & ~CENTER_FILES)
                          + SPACE_BONUS[1][1] * count(blackSpace2 & CENTER_FILES) + SPACE_BONUS[1][0] * count(blackSpace2 & ~CENTER_FILES))
-                            * blackSpaceWeight * blackSpaceWeight / 512;
-    valueMg -= blackSpaceScore;
-    valueEg -= blackSpaceScore / 2;
+                         * blackSpaceWeight * blackSpaceWeight / 512;
+    valueMg -= blackSpaceScore * 2;
+    valueEg -= blackSpaceScore;
 
 
     //------------------------------King Safety---------------------------------
@@ -479,12 +479,10 @@ int Eval::evaluate(Board &b) {
     // Shielded minors: minors behind own pawns
     pieceEvalScore[WHITE] += SHIELDED_MINOR_BONUS * count((pieces[WHITE][PAWNS] >> 8)
                                                         & (pieces[WHITE][KNIGHTS] | pieces[WHITE][BISHOPS])
-                                                        & (RANK_2 | RANK_3 | RANK_4)
-                                                        & ~(FILE_A | FILE_H));
+                                                        & (RANK_2 | RANK_3 | RANK_4));
     pieceEvalScore[BLACK] += SHIELDED_MINOR_BONUS * count((pieces[BLACK][PAWNS] << 8)
                                                         & (pieces[BLACK][KNIGHTS] | pieces[BLACK][BISHOPS])
-                                                        & (RANK_7 | RANK_6 | RANK_5)
-                                                        & ~(FILE_A | FILE_H));
+                                                        & (RANK_7 | RANK_6 | RANK_5));
 
     // Outposts
     constexpr uint64_t OUTPOST_SQS[2] = {(CENTER_FILES & (RANK_4 | RANK_5 | RANK_6))

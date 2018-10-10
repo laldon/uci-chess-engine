@@ -144,14 +144,14 @@ constexpr int pieceSquareTable[2][6][32] = {
  -5,  0,  0,  0
 },
 { // Queens
--29,-21,-15,-10,
--16,-21, -7, -6,
- -8, -3,  0,  2,
- -5, -3, -3, -3,
- -3, -3, -3, -3,
- -6,  5, -1, -2,
--14,  1,  3,  2,
--19,-16,-10,  2
+-26,-18,-12, -9,
+-13,-18, -4, -3,
+ -5,  0,  3,  5,
+ -2,  0,  0,  0,
+  0,  0,  0,  0,
+ -3,  8,  2,  1,
+-11,  4,  6,  5,
+-16,-13, -7,  5
 },
 { // Kings
 -37,-32,-34,-45,
@@ -207,14 +207,14 @@ constexpr int pieceSquareTable[2][6][32] = {
   0,  0,  0,  0
 },
 { // Queens
--18, -9, -1, -1,
- -9,  5, 10, 16,
- -2, 13, 18, 22,
-  0, 16, 20, 26,
-  0, 16, 20, 24,
- -4,  4,  8, 10,
--19,-14,-12, -8,
--26,-23,-23,-18
+-15, -6,  2,  2,
+ -6,  8, 13, 19,
+  1, 16, 21, 25,
+  3, 19, 23, 29,
+  3, 19, 23, 27,
+ -1,  7, 11, 13,
+-16,-11, -9, -5,
+-23,-20,-20,-15
 },
 { // Kings
 -68,-18,-14, -7,
@@ -351,7 +351,7 @@ constexpr int KING_PRESSURE = 3;
 constexpr int KS_KING_PRESSURE_FACTOR = 12;
 constexpr int KS_NO_QUEEN = -57;
 constexpr int KS_BASE = -3;
-constexpr int SAFE_CHECK_BONUS[4] = {62, 22, 60, 53};
+constexpr int SAFE_CHECK_BONUS[4] = {64, 22, 60, 53};
 
 // Minor pieces
 // A penalty for each own pawn that is on a square of the same color as your bishop
