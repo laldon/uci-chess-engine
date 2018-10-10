@@ -61,7 +61,7 @@ private:
 };
 
 
-constexpr int EG_FACTOR_PIECE_VALS[5] = {49, 378, 380, 677, 1560};
+constexpr int EG_FACTOR_PIECE_VALS[5] = {50, 378, 380, 677, 1560};
 constexpr int EG_FACTOR_ALPHA = 2230;
 constexpr int EG_FACTOR_BETA = 6340;
 constexpr int EG_FACTOR_RES = 1000;
@@ -231,7 +231,7 @@ constexpr int pieceSquareTable[2][6][32] = {
 
 //-------------------------Material eval constants------------------------------
 constexpr int BISHOP_PAIR_VALUE = 58;
-constexpr int TEMPO_VALUE = 20;
+constexpr int TEMPO_VALUE = 19;
 
 // Material imbalance terms
 constexpr int OWN_OPP_IMBALANCE[2][5][5] = {
@@ -347,9 +347,9 @@ constexpr int KING_THREAT_MULTIPLIER[4] = {8, 5, 7, 4};
 constexpr int KING_THREAT_SQUARE[4] = {8, 11, 9, 10};
 constexpr int KING_DEFENSELESS_SQUARE = 22;
 constexpr int KS_PAWN_FACTOR = 11;
-constexpr int KING_PRESSURE = 4;
-constexpr int KS_KING_PRESSURE_FACTOR = 11;
-constexpr int KS_NO_QUEEN = -60;
+constexpr int KING_PRESSURE = 3;
+constexpr int KS_KING_PRESSURE_FACTOR = 12;
+constexpr int KS_NO_QUEEN = -58;
 constexpr int KS_BASE = -3;
 constexpr int SAFE_CHECK_BONUS[4] = {66, 22, 60, 53};
 
