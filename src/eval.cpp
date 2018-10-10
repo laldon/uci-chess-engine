@@ -478,11 +478,9 @@ int Eval::evaluate(Board &b) {
 
     // Shielded minors: minors behind own pawns
     pieceEvalScore[WHITE] += SHIELDED_MINOR_BONUS * count((pieces[WHITE][PAWNS] >> 8)
-                                                        & (pieces[WHITE][KNIGHTS] | pieces[WHITE][BISHOPS])
-                                                        & (RANK_2 | RANK_3 | RANK_4));
+                                                        & (pieces[WHITE][KNIGHTS] | pieces[WHITE][BISHOPS]));
     pieceEvalScore[BLACK] += SHIELDED_MINOR_BONUS * count((pieces[BLACK][PAWNS] << 8)
-                                                        & (pieces[BLACK][KNIGHTS] | pieces[BLACK][BISHOPS])
-                                                        & (RANK_7 | RANK_6 | RANK_5));
+                                                        & (pieces[BLACK][KNIGHTS] | pieces[BLACK][BISHOPS]));
 
     // Outposts
     constexpr uint64_t OUTPOST_SQS[2] = {(CENTER_FILES & (RANK_4 | RANK_5 | RANK_6))
