@@ -581,9 +581,9 @@ int Eval::evaluate(Board &b) {
             uint64_t mobilityMap = pml.get(i).legal & mobilitySafeSqs & queenMobilitySafeSqs;
 
             psqtScores[color] += PSQT[color][QUEENS][queenSq];
-            mobilityScore[color] += MOBILITY[QUEENS-1][count(mobilityMap)];
+            mobilityScore[color] += MOBILITY[QUEENS-1][count(mobilityMap)]
 //                               + EXTENDED_CENTER_VAL * count(mobilityMap & EXTENDED_CENTER_SQS)
-//                               + CENTER_BONUS[QUEENS-1] * count(mobilityMap & CENTER_SQS);
+                                 + CENTER_BONUS[QUEENS-1] * count(mobilityMap & CENTER_SQS);
         }
 
         // King mobility
