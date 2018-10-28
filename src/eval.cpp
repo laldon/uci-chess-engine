@@ -511,7 +511,7 @@ int Eval::evaluate(Board &b) {
 
             psqtScores[color] += PSQT[color][KNIGHTS][knightSq];
             mobilityScore[color] += MOBILITY[KNIGHTS-1][count(mobilityMap)]
-                                 + EXTENDED_CENTER_VAL * count(mobilityMap & EXTENDED_CENTER_SQS)
+                                 + EXTENDED_CENTER_VAL[KNIGHTS-1] * count(mobilityMap & EXTENDED_CENTER_SQS)
                                  + CENTER_BONUS[KNIGHTS-1] * count(mobilityMap & CENTER_SQS);
 
             // Outposts
@@ -536,7 +536,7 @@ int Eval::evaluate(Board &b) {
 
             psqtScores[color] += PSQT[color][BISHOPS][bishopSq];
             mobilityScore[color] += MOBILITY[BISHOPS-1][count(mobilityMap)]
-                                 + EXTENDED_CENTER_VAL * count(mobilityMap & EXTENDED_CENTER_SQS)
+                                 + EXTENDED_CENTER_VAL[BISHOPS-1] * count(mobilityMap & EXTENDED_CENTER_SQS)
                                  + CENTER_BONUS[BISHOPS-1] * count(mobilityMap & CENTER_SQS);
 
             if (bit & ~pawnStopAtt[color^1] & OUTPOST_SQS[color]) {
@@ -560,7 +560,7 @@ int Eval::evaluate(Board &b) {
 
             psqtScores[color] += PSQT[color][ROOKS][rookSq];
             mobilityScore[color] += MOBILITY[ROOKS-1][count(mobilityMap)]
-                                 + EXTENDED_CENTER_VAL * count(mobilityMap & EXTENDED_CENTER_SQS)
+                                 + EXTENDED_CENTER_VAL[ROOKS-1] * count(mobilityMap & EXTENDED_CENTER_SQS)
                                  + CENTER_BONUS[ROOKS-1] * count(mobilityMap & CENTER_SQS);
 
             // Bonus for having rooks on open or semiopen files
@@ -582,7 +582,7 @@ int Eval::evaluate(Board &b) {
 
             psqtScores[color] += PSQT[color][QUEENS][queenSq];
             mobilityScore[color] += MOBILITY[QUEENS-1][count(mobilityMap)]
-//                               + EXTENDED_CENTER_VAL * count(mobilityMap & EXTENDED_CENTER_SQS)
+                                 + EXTENDED_CENTER_VAL[QUEENS-1] * count(mobilityMap & EXTENDED_CENTER_SQS)
                                  + CENTER_BONUS[QUEENS-1] * count(mobilityMap & CENTER_SQS);
         }
 

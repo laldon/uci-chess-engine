@@ -298,10 +298,10 @@ constexpr int mobilityTable[2][5][28] = {
 };
 
 // Value of each square in the extended center in cp
-constexpr Score EXTENDED_CENTER_VAL = E(3, 0);
+constexpr Score EXTENDED_CENTER_VAL[4] = { E( 3,  0), E( 3,  0), E( 3,  0), E( 1,  0) };
 // Additional bonus for squares in the center four squares in cp, in addition
 // to EXTENDED_CENTER_VAL
-constexpr Score CENTER_BONUS[4] = { E( 5,  1), E( 4,  1), E( 4,  0), E( 2,  0) };
+constexpr Score CENTER_BONUS[4] = { E( 4,  0), E( 4,  0), E( 4,  0), E( 2,  0) };
 
 // King safety
 // The value of having 0, 1, and both castling rights
