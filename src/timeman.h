@@ -26,8 +26,8 @@ constexpr int DEPTH = 2;
 constexpr int MOVETIME = 4;
 
 // Time management constants
-constexpr int MOVE_HORIZON = 36; // expect this many moves left in the game
-constexpr int ENDGAME_HORIZON_LIMIT = 72;
+constexpr int MOVE_HORIZON = 38; // expect this many moves left in the game
+constexpr int ENDGAME_HORIZON_LIMIT = 76;
 constexpr int MOVE_HORIZON_DEC = 8; // at the endgame horizon limit, move horizon decreases by this much
 constexpr double TIME_FACTOR = 0.85; // timeFactor = log b / (b - 1) where b is branch factor
 constexpr double MAX_TIME_FACTOR = 5.0; // do not spend more than this multiple of time over the limit
