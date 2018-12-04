@@ -28,7 +28,7 @@
 
 namespace {
 
-constexpr uint64_t KING_ZONE_DEFENDER[2] = {HALF[WHITE] | RANK_5, RANK_4 | HALF[BLACK]};
+constexpr uint64_t KING_ZONE_DEFENDER[2] = {HALF[WHITE], HALF[BLACK]};
 constexpr uint64_t KING_ZONE_FLANK[8] = {
     QSIDE, QSIDE, QSIDE, CENTER_FILES, CENTER_FILES, KSIDE, KSIDE, KSIDE
 };
