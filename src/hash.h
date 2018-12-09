@@ -60,8 +60,8 @@ inline uint8_t getHashNodeType(uint64_t data) {
  * Size: 16 bytes
  */
 struct HashEntry {
-    uint64_t zobristKey;
-    uint64_t data;
+    uint64_t zobristKey{};
+    uint64_t data{};
 
     HashEntry() {
         clearEntry();
@@ -77,7 +77,7 @@ struct HashEntry {
         data = 0;
     }
 
-    ~HashEntry() {}
+    ~HashEntry() = default;
 };
 
 // This contains each of the hash table entries, in a two-bucket system.
@@ -86,8 +86,9 @@ public:
     HashEntry slot1;
     HashEntry slot2;
 
-    HashNode() {}
-    ~HashNode() {}
+    HashNode() = default;
+
+    ~HashNode() = default;
 };
 
 class Hash {
@@ -99,7 +100,7 @@ private:
     void init(uint64_t MB);
 
 public:
-    Hash(uint64_t MB);
+    explicit Hash(uint64_t MB);
     Hash(const Hash &other) = delete;
     Hash& operator=(const Hash &other) = delete;
     ~Hash();

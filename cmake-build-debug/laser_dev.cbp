@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="laser_dev"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="C:/laser_dev/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/MinGW/mingw64/bin/mingw32-make.exe -f &quot;C:/laser_dev/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/MinGW/mingw64/bin/mingw32-make.exe -f &quot;C:/laser_dev/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/mingw64/bin/mingw32-make.exe -f &quot;C:/laser_dev/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/mingw64/bin/mingw32-make.exe -f &quot;C:/laser_dev/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="C:/laser_dev/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/MinGW/mingw64/bin/mingw32-make.exe -f &quot;C:/laser_dev/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/MinGW/mingw64/bin/mingw32-make.exe -f &quot;C:/laser_dev/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/mingw64/bin/mingw32-make.exe -f &quot;C:/laser_dev/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/mingw64/bin/mingw32-make.exe -f &quot;C:/laser_dev/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="laser_dev">
+				<Option output="C:/laser_dev/cmake-build-debug/laser_dev.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/laser_dev/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/laser_dev/src"/>
+					<Add directory="C:/laser_dev/src/syzygy"/>
+					<Add directory="C:/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="C:/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="C:/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="C:/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="C:/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="C:/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/mingw64/bin/mingw32-make.exe -f &quot;C:/laser_dev/cmake-build-debug/Makefile&quot;  VERBOSE=1 laser_dev"/>
+					<CompileFile command="C:/MinGW/mingw64/bin/mingw32-make.exe -f &quot;C:/laser_dev/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/mingw64/bin/mingw32-make.exe -f &quot;C:/laser_dev/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/mingw64/bin/mingw32-make.exe -f &quot;C:/laser_dev/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="laser_dev/fast">
+				<Option output="C:/laser_dev/cmake-build-debug/laser_dev.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/laser_dev/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/laser_dev/src"/>
+					<Add directory="C:/laser_dev/src/syzygy"/>
+					<Add directory="C:/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="C:/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="C:/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="C:/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="C:/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="C:/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/mingw64/bin/mingw32-make.exe -f &quot;C:/laser_dev/cmake-build-debug/Makefile&quot;  VERBOSE=1 laser_dev/fast"/>
+					<CompileFile command="C:/MinGW/mingw64/bin/mingw32-make.exe -f &quot;C:/laser_dev/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/mingw64/bin/mingw32-make.exe -f &quot;C:/laser_dev/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/mingw64/bin/mingw32-make.exe -f &quot;C:/laser_dev/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="C:/laser_dev/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/MinGW/mingw64/bin/mingw32-make.exe -f &quot;C:/laser_dev/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/MinGW/mingw64/bin/mingw32-make.exe -f &quot;C:/laser_dev/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/mingw64/bin/mingw32-make.exe -f &quot;C:/laser_dev/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/mingw64/bin/mingw32-make.exe -f &quot;C:/laser_dev/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="C:/laser_dev/src/Makefile">
+			<Option target="laser_dev"/>
+		</Unit>
+		<Unit filename="C:/laser_dev/src/bbinit.cpp">
+			<Option target="laser_dev"/>
+		</Unit>
+		<Unit filename="C:/laser_dev/src/bbinit.h">
+			<Option target="laser_dev"/>
+		</Unit>
+		<Unit filename="C:/laser_dev/src/board.cpp">
+			<Option target="laser_dev"/>
+		</Unit>
+		<Unit filename="C:/laser_dev/src/board.h">
+			<Option target="laser_dev"/>
+		</Unit>
+		<Unit filename="C:/laser_dev/src/common.cpp">
+			<Option target="laser_dev"/>
+		</Unit>
+		<Unit filename="C:/laser_dev/src/common.h">
+			<Option target="laser_dev"/>
+		</Unit>
+		<Unit filename="C:/laser_dev/src/eval.cpp">
+			<Option target="laser_dev"/>
+		</Unit>
+		<Unit filename="C:/laser_dev/src/eval.h">
+			<Option target="laser_dev"/>
+		</Unit>
+		<Unit filename="C:/laser_dev/src/evalhash.cpp">
+			<Option target="laser_dev"/>
+		</Unit>
+		<Unit filename="C:/laser_dev/src/evalhash.h">
+			<Option target="laser_dev"/>
+		</Unit>
+		<Unit filename="C:/laser_dev/src/hash.cpp">
+			<Option target="laser_dev"/>
+		</Unit>
+		<Unit filename="C:/laser_dev/src/hash.h">
+			<Option target="laser_dev"/>
+		</Unit>
+		<Unit filename="C:/laser_dev/src/moveorder.cpp">
+			<Option target="laser_dev"/>
+		</Unit>
+		<Unit filename="C:/laser_dev/src/moveorder.h">
+			<Option target="laser_dev"/>
+		</Unit>
+		<Unit filename="C:/laser_dev/src/search.cpp">
+			<Option target="laser_dev"/>
+		</Unit>
+		<Unit filename="C:/laser_dev/src/search.h">
+			<Option target="laser_dev"/>
+		</Unit>
+		<Unit filename="C:/laser_dev/src/searchparams.h">
+			<Option target="laser_dev"/>
+		</Unit>
+		<Unit filename="C:/laser_dev/src/syzygy/tbcore.c">
+			<Option target="laser_dev"/>
+		</Unit>
+		<Unit filename="C:/laser_dev/src/syzygy/tbcore.h">
+			<Option target="laser_dev"/>
+		</Unit>
+		<Unit filename="C:/laser_dev/src/syzygy/tbprobe.cpp">
+			<Option target="laser_dev"/>
+		</Unit>
+		<Unit filename="C:/laser_dev/src/syzygy/tbprobe.h">
+			<Option target="laser_dev"/>
+		</Unit>
+		<Unit filename="C:/laser_dev/src/timeman.h">
+			<Option target="laser_dev"/>
+		</Unit>
+		<Unit filename="C:/laser_dev/src/uci.cpp">
+			<Option target="laser_dev"/>
+		</Unit>
+		<Unit filename="C:/laser_dev/src/uci.h">
+			<Option target="laser_dev"/>
+		</Unit>
+		<Unit filename="C:/laser_dev/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

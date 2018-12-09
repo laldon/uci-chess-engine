@@ -280,7 +280,7 @@ int main(int argc, char **argv) {
                     for (unsigned int i = 5; i < inputVector.size(); i++) {
                         path += string(" ") + inputVector.at(i);
                     }
-                    char *c_path = (char *) malloc(path.length() + 1);
+                    auto *c_path = (char *) malloc(path.length() + 1);
                     std::strcpy(c_path, path.c_str());
                     init_tablebases(c_path);
                     free(c_path);
@@ -331,7 +331,7 @@ int main(int argc, char **argv) {
         }
 
         else if (input == "eval") {
-            Eval e;
+            Eval e{};
             e.evaluate<true>(board);
         }
 
@@ -409,9 +409,9 @@ Move stringToMove(const string &moveStr, Board &b, bool &reversible) {
     int endSq = 8 * (moveStr.at(3) - '1') + (moveStr.at(2) - 'a');
 
     int color = b.getPlayerToMove();
-    bool isCapture = (bool)(indexToBit(endSq) & b.getAllPieces(color ^ 1));
-    bool isPawnMove = (bool)(indexToBit(startSq) & b.getPieces(color, PAWNS));
-    bool isKingMove = (bool)(indexToBit(startSq) & b.getPieces(color, KINGS));
+    auto isCapture = (bool)(indexToBit(endSq) & b.getAllPieces(color ^ 1));
+    auto isPawnMove = (bool)(indexToBit(startSq) & b.getPieces(color, PAWNS));
+    auto isKingMove = (bool)(indexToBit(startSq) & b.getPieces(color, KINGS));
 
     bool isEP = (isPawnMove && !isCapture && ((endSq - startSq) & 1));
     bool isDoublePawn = (isPawnMove && abs(endSq - startSq) == 16);
@@ -446,18 +446,17 @@ Board fenToBoard(string s) {
     for (int elem = 7; elem >= 0; elem--) {
         string rowAtElem = rows.at(elem);
 
-        for (unsigned col = 0; col < rowAtElem.length(); col++) {
-            char sq = rowAtElem.at(col);
+        for (char sq : rowAtElem) {
             do mailbox[++sqCounter] = pieceString.find(sq--);
             while ('0' < sq && sq < '8');
         }
     }
 
     int playerToMove = (components.at(1) == "w") ? WHITE : BLACK;
-    bool whiteCanKCastle = (components.at(2).find("K") != string::npos);
-    bool whiteCanQCastle = (components.at(2).find("Q") != string::npos);
-    bool blackCanKCastle = (components.at(2).find("k") != string::npos);
-    bool blackCanQCastle = (components.at(2).find("q") != string::npos);
+    bool whiteCanKCastle = (components.at(2).find('K') != string::npos);
+    bool whiteCanQCastle = (components.at(2).find('Q') != string::npos);
+    bool blackCanKCastle = (components.at(2).find('k') != string::npos);
+    bool blackCanQCastle = (components.at(2).find('q') != string::npos);
     int epCaptureFile = (components.at(3) == "-") ? NO_EP_POSSIBLE
         : components.at(3).at(0) - 'a';
     int fiftyMoveCounter = (components.size() == 6) ? std::stoi(components.at(4)) : 0;
@@ -510,7 +509,7 @@ string boardToFEN(Board &board) {
     if (epCaptureFile == NO_EP_POSSIBLE)
         fenString += '-';
     else {
-        fenString += 'a' + epCaptureFile;
+        fenString += std::to_string('a' + epCaptureFile);
         fenString += (board.getPlayerToMove() == WHITE) ? '6' : '3';
     }
 
@@ -566,8 +565,8 @@ void stringToLowerCase(std::string &s) {
             s[i] = tolower(s[i]);
     }
     else {
-        for (std::size_t i = 0; i < s.size(); i++)
-            s[i] = tolower(s[i]);
+        for (char &i : s)
+            i = tolower(i);
     }
 }
 
@@ -638,9 +637,9 @@ void runBenchmark(Board &b, int depth) {
     // Set a default when the given depth is 0.
     timeParams.allotment = depth ? depth : 13;
 
-    for (unsigned int i = 0; i < benchPositions.size(); i++) {
+    for (const auto &benchPosition : benchPositions) {
         clearAll(b);
-        b = fenToBoard(benchPositions.at(i));
+        b = fenToBoard(benchPosition);
 
         isStop = false;
         stopSignal = false;

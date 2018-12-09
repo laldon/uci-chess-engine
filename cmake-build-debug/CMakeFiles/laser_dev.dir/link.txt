@@ -1,0 +1,3 @@
+"C:\Program Files\JetBrains\CLion 2018.3.1\bin\cmake\win\bin\cmake.exe" -E remove -f CMakeFiles\laser_dev.dir/objects.a
+C:\MinGW\mingw64\bin\ar.exe cr CMakeFiles\laser_dev.dir/objects.a @CMakeFiles\laser_dev.dir\objects1.rsp
+C:\MinGW\mingw64\bin\g++.exe -g   -Wl,--whole-archive CMakeFiles\laser_dev.dir/objects.a -Wl,--no-whole-archive  -o laser_dev.exe -Wl,--out-implib,liblaser_dev.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\laser_dev.dir\linklibs.rsp

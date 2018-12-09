@@ -68,7 +68,7 @@ uint64_t indexToMask64(int index, int nBits, uint64_t mask);
 uint64_t ratt(int sq, uint64_t block);
 uint64_t batt(int sq, uint64_t block);
 int magicMap(uint64_t masked, uint64_t magic, int nBits);
-uint64_t findMagic(int sq, int m, bool isBishop);
+uint64_t findMagic(int sq, int iBits, bool isBishop);
 
 
 // Initializes the 64x64 table, indexed by from and to square, of all
@@ -294,8 +294,8 @@ uint64_t findMagic(int sq, int iBits, bool isBishop) {
             continue;
 
         // Clear the used table
-        for (int i = 0; i < 4096; i++)
-            used[i] = 0;
+        for (unsigned long long &i : used)
+            i = 0;
         // Calculate the packed bits for every possible mask using this magic
         // and see if any fail
         failed = false;

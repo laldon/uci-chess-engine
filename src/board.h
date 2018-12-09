@@ -36,11 +36,12 @@ constexpr bool MOVEGEN_QUIETS = false;
 
 
 struct PieceMoveInfo {
-    int pieceID;
-    int startSq;
-    uint64_t legal;
+    int pieceID{};
+    int startSq{};
+    uint64_t legal{};
 
-    PieceMoveInfo() {}
+    PieceMoveInfo() = default;
+
     PieceMoveInfo(int _pieceID, int _startSq, uint64_t _legal) {
         pieceID = _pieceID;
         startSq = _startSq;
@@ -51,12 +52,12 @@ struct PieceMoveInfo {
 struct PieceMoveList {
     PieceMoveInfo arrayList[32];
     unsigned int length;
-    unsigned int starts[5];
+    unsigned int starts[5]{};
 
     PieceMoveList() {
         length = 0;
     }
-    ~PieceMoveList() {}
+    ~PieceMoveList() = default;
 
     unsigned int size() { return length; }
 

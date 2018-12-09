@@ -37,8 +37,8 @@ static uint64_t startPosZobristKey = 0;
 
 void initZobristTable() {
     std::mt19937_64 rng (61280152908);
-    for (int i = 0; i < 794; i++)
-        zobristTable[i] = rng();
+    for (unsigned long long &i : zobristTable)
+        i = rng();
 
     Board b;
     int *mailbox = b.getMailbox();
@@ -126,7 +126,7 @@ Board::Board(int *mailboxBoard, bool _whiteCanKCastle, bool _blackCanKCastle,
     kingSqs[BLACK] = bitScanForward(pieces[BLACK][KINGS]);
 }
 
-Board::~Board() {}
+Board::~Board() = default;
 
 Board Board::staticCopy() {
     Board b;
@@ -1490,7 +1490,7 @@ int Board::getKingSq(int color) {
 }
 
 int *Board::getMailbox() {
-    int *result = new int[64];
+    auto *result = new int[64];
     for (int i = 0; i < 64; i++) {
         result[i] = -1;
     }

@@ -31,7 +31,7 @@ EvalHash::~EvalHash() {
 // been checked with get and is not in the table.
 void EvalHash::add(Board &b, int score) {
     // Use the lower 32 bits of the hash key to index the array
-    uint32_t h = (uint32_t) (b.getZobristKey() & 0xFFFFFFFF);
+    auto h = (uint32_t) (b.getZobristKey() & 0xFFFFFFFF);
     uint32_t index = h & (size-1);
 
     table[index].setEntry(b, score);
@@ -40,7 +40,7 @@ void EvalHash::add(Board &b, int score) {
 // Get the hash entry, if any, associated with a board b.
 int EvalHash::get(Board &b) {
     // Use the lower 32 bits of the hash key to index the array
-    uint32_t h = (uint32_t) (b.getZobristKey() & 0xFFFFFFFF);
+    auto h = (uint32_t) (b.getZobristKey() & 0xFFFFFFFF);
     uint32_t index = h & (size-1);
 
     if ((table[index].zobristKey ^ table[index].score) == (uint32_t) (b.getZobristKey() >> 32))

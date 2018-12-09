@@ -38,7 +38,7 @@
 #define TBMAX_PAWN 256
 #define HSHMAX 5
 
-#define Swap(a,b) {int tmp=a;a=b;b=tmp;}
+#define Swap(a,b) {int tmp=a;(a)=b;(b)=tmp;}
 
 #define TB_PAWN 1
 #define TB_KNIGHT 2
@@ -616,7 +616,7 @@ static void init_indices(void)
   }
 }
 
-static uint64 encode_piece(struct TBEntry_piece *ptr, ubyte *norm, int *pos, int *factor)
+static uint64 encode_piece(struct TBEntry_piece *ptr, const ubyte *norm, int *pos, const int *factor)
 {
   uint64 idx;
   int i, j, k, m, l, p;
@@ -692,7 +692,7 @@ static int pawn_file(struct TBEntry_pawn *ptr, int *pos)
   return file_to_file[pos[0] & 0x07];
 }
 
-static uint64 encode_pawn(struct TBEntry_pawn *ptr, ubyte *norm, int *pos, int *factor)
+static uint64 encode_pawn(struct TBEntry_pawn *ptr, const ubyte *norm, int *pos, const int *factor)
 {
   uint64 idx;
   int i, j, k, m, s, t;
@@ -750,7 +750,7 @@ static uint64 encode_pawn(struct TBEntry_pawn *ptr, ubyte *norm, int *pos, int *
   return idx;
 }
 
-static ubyte decompress_pairs(struct PairsData *d, uint64 index);
+static ubyte decompress_pairs(struct PairsData *d, uint64 idx);
 
 // place k like pieces on n squares
 static int subfactor(int k, int n)
@@ -819,7 +819,7 @@ static uint64 calc_factors_pawn(int *factor, int num, int order, int order2, uby
   return f;
 }
 
-static void set_norm_piece(struct TBEntry_piece *ptr, ubyte *norm, ubyte *pieces)
+static void set_norm_piece(struct TBEntry_piece *ptr, ubyte *norm, const ubyte *pieces)
 {
   int i, j;
 
@@ -840,7 +840,7 @@ static void set_norm_piece(struct TBEntry_piece *ptr, ubyte *norm, ubyte *pieces
       norm[i]++;
 }
 
-static void set_norm_pawn(struct TBEntry_pawn *ptr, ubyte *norm, ubyte *pieces)
+static void set_norm_pawn(struct TBEntry_pawn *ptr, ubyte *norm, const ubyte *pieces)
 {
   int i, j;
 
@@ -855,7 +855,7 @@ static void set_norm_pawn(struct TBEntry_pawn *ptr, ubyte *norm, ubyte *pieces)
       norm[i]++;
 }
 
-static void setup_pieces_piece(struct TBEntry_piece *ptr, unsigned char *data, uint64 *tb_size)
+static void setup_pieces_piece(struct TBEntry_piece *ptr, const unsigned char *data, uint64 *tb_size)
 {
   int i;
   int order;
@@ -873,7 +873,7 @@ static void setup_pieces_piece(struct TBEntry_piece *ptr, unsigned char *data, u
   tb_size[1] = calc_factors_piece(ptr->factor[1], ptr->num, order, ptr->norm[1], ptr->enc_type);
 }
 
-static void setup_pieces_piece_dtz(struct DTZEntry_piece *ptr, unsigned char *data, uint64 *tb_size)
+static void setup_pieces_piece_dtz(struct DTZEntry_piece *ptr, const unsigned char *data, uint64 *tb_size)
 {
   int i;
   int order;
@@ -885,7 +885,7 @@ static void setup_pieces_piece_dtz(struct DTZEntry_piece *ptr, unsigned char *da
   tb_size[0] = calc_factors_piece(ptr->factor, ptr->num, order, ptr->norm, ptr->enc_type);
 }
 
-static void setup_pieces_pawn(struct TBEntry_pawn *ptr, unsigned char *data, uint64 *tb_size, int f)
+static void setup_pieces_pawn(struct TBEntry_pawn *ptr, const unsigned char *data, uint64 *tb_size, int f)
 {
   int i, j;
   int order, order2;
@@ -906,7 +906,7 @@ static void setup_pieces_pawn(struct TBEntry_pawn *ptr, unsigned char *data, uin
   tb_size[1] = calc_factors_pawn(ptr->file[f].factor[1], ptr->num, order, order2, ptr->file[f].norm[1], f);
 }
 
-static void setup_pieces_pawn_dtz(struct DTZEntry_pawn *ptr, unsigned char *data, uint64 *tb_size, int f)
+static void setup_pieces_pawn_dtz(struct DTZEntry_pawn *ptr, const unsigned char *data, uint64 *tb_size, int f)
 {
   int i, j;
   int order, order2;
@@ -958,7 +958,7 @@ static struct PairsData *setup_pairs(unsigned char *data, uint64 tb_size, uint64
   int blocksize = data[1];
   int idxbits = data[2];
   int real_num_blocks = *(uint32 *)(&data[4]);
-  int num_blocks = real_num_blocks + *(ubyte *)(&data[3]);
+  int num_blocks = real_num_blocks + *&data[3];
   int max_len = data[8];
   int min_len = data[9];
   int h = max_len - min_len + 1;
@@ -1068,7 +1068,7 @@ static int init_table_wdl(struct TBEntry *entry, char *str)
     struct TBEntry_pawn *ptr = (struct TBEntry_pawn *)entry;
     s = 1 + (ptr->pawns[1] > 0);
     for (f = 0; f < 4; f++) {
-      setup_pieces_pawn((struct TBEntry_pawn *)ptr, data, &tb_size[2 * f], f);
+      setup_pieces_pawn(ptr, data, &tb_size[2 * f], f);
       data += ptr->num + s;
     }
     data += ((uintptr_t)data) & 0x01;

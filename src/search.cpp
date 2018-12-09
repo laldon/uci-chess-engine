@@ -41,8 +41,8 @@ using std::endl;
 
 // Records search statistics required by the UCI protocol
 struct SearchStatistics {
-    uint64_t nodes;
-    uint64_t tbhits;
+    uint64_t nodes{};
+    uint64_t tbhits{};
 
     SearchStatistics() {
         reset();
@@ -57,7 +57,7 @@ struct SearchStatistics {
 // Records the PV found by the search.
 struct SearchPV {
     int pvLength;
-    Move pv[MAX_DEPTH+1];
+    Move pv[MAX_DEPTH+1]{};
 
     SearchPV() {
         pvLength = 0;
@@ -68,7 +68,7 @@ struct SearchPV {
 struct ThreadMemory {
     SearchParameters searchParams;
     SearchStatistics searchStats;
-    SearchStackInfo ssInfo[129];
+    SearchStackInfo ssInfo[129]{};
     TwoFoldStack twoFoldPositions;
 
     ThreadMemory() {
@@ -251,7 +251,7 @@ void getBestMoveThreader(Board *b, TimeManagement *timeParams, MoveList *movesTo
 
     // Create threads for SMP if necessary
     if (numThreads > 1) {
-        std::thread *threadPool = new std::thread[numThreads];
+        auto *threadPool = new std::thread[numThreads];
 
         // Start and join all threads
         for (int i = 0; i < numThreads; i++) {
@@ -783,7 +783,7 @@ int PVS(Board &b, int depth, int alpha, int beta, int threadID, bool isCutNode, 
             ssi->staticEval = staticEval = ehe - EVAL_HASH_OFFSET;
         }
         else {
-            Eval e;
+            Eval e{};
             ssi->staticEval = staticEval = (color == WHITE) ? e.evaluate(b)
                                                             : -e.evaluate(b);
             evalCache.add(b, staticEval);
@@ -1244,7 +1244,7 @@ int quiescence(Board &b, int plies, int alpha, int beta, int threadID) {
         standPat = ehe - EVAL_HASH_OFFSET;
     }
     else {
-        Eval e;
+        Eval e{};
         standPat = (color == WHITE) ? e.evaluate(b) : -e.evaluate(b);
         evalCache.add(b, standPat);
     }

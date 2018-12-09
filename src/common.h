@@ -97,11 +97,11 @@ inline Move setFlags(Move m, uint16_t f) {
 }
 
 inline int getStartSq(Move m) {
-    return (int) (m & 0x3F);
+    return m & 0x3F;
 }
 
 inline int getEndSq(Move m) {
-    return (int) ((m >> 6) & 0x3F);
+    return (m >> 6) & 0x3F;
 }
 
 inline int getPromotion(Move m) {
@@ -156,8 +156,6 @@ public:
     }
 
     T get(int i) { return arrayList[i]; }
-
-    void set(int i, T o) { arrayList[i] = o; }
 
     T remove(int i) {
         T deleted = arrayList[i];

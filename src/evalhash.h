@@ -31,8 +31,8 @@ constexpr int EVAL_HASH_OFFSET = (1 << 20);
  * Size: 8 bytes
  */
 struct EvalHashEntry {
-    uint32_t zobristKey;
-    uint32_t score;
+    uint32_t zobristKey{};
+    uint32_t score{};
 
     EvalHashEntry() {
         clearEntry();
@@ -48,7 +48,7 @@ struct EvalHashEntry {
         score = 0;
     }
 
-    ~EvalHashEntry() {}
+    ~EvalHashEntry() = default;
 };
 
 class EvalHash {
@@ -61,7 +61,7 @@ private:
 public:
     uint64_t keys;
 
-    EvalHash(uint64_t MB);
+    explicit EvalHash(uint64_t MB);
     EvalHash(const EvalHash &other) = delete;
     EvalHash& operator=(const EvalHash &other) = delete;
     ~EvalHash();

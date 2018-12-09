@@ -147,7 +147,7 @@ static int probe_wdl_table(Board &b, int *success) {
             bside = (b.getPlayerToMove() == WHITE);
         } else {
             cmirror = mirror = 0;
-            bside = !(b.getPlayerToMove() == WHITE);
+            bside = b.getPlayerToMove() != WHITE;
         }
     } else {
         cmirror = b.getPlayerToMove() == WHITE ? 0 : 8;
@@ -159,11 +159,11 @@ static int probe_wdl_table(Board &b, int *success) {
     // pc[i] ^ cmirror, where 1 = white pawn, ..., 14 = black king.
     // Pieces of the same type are guaranteed to be consecutive.
     if (!ptr->has_pawns) {
-        struct TBEntry_piece *entry = (struct TBEntry_piece *)ptr;
+        auto *entry = (struct TBEntry_piece *)ptr;
         ubyte *pc = entry->pieces[bside];
         for (i = 0; i < entry->num;) {
-            uint64_t bb = b.getPieces((int)((pc[i] ^ cmirror) >> 3),
-                            (int)(pc[i] & 0x07) - 1);
+            uint64_t bb = b.getPieces((pc[i] ^ cmirror) >> 3,
+                                      (pc[i] & 0x07) - 1);
             do {
                 p[i++] = bitScanForward(bb);
                 bb &= bb-1;
@@ -172,9 +172,9 @@ static int probe_wdl_table(Board &b, int *success) {
         idx = encode_piece(entry, entry->norm[bside], p, entry->factor[bside]);
         res = decompress_pairs(entry->precomp[bside], idx);
     } else {
-        struct TBEntry_pawn *entry = (struct TBEntry_pawn *)ptr;
+        auto *entry = (struct TBEntry_pawn *)ptr;
         int k = entry->file[0].pieces[0][0] ^ cmirror;
-        uint64_t bb = b.getPieces((int)(k >> 3), (int)(k & 0x07) - 1);
+        uint64_t bb = b.getPieces(k >> 3, (k & 0x07) - 1);
         i = 0;
         do {
             p[i++] = bitScanForward(bb) ^ mirror;
@@ -183,8 +183,8 @@ static int probe_wdl_table(Board &b, int *success) {
         int f = pawn_file(entry, p);
         ubyte *pc = entry->file[f].pieces[bside];
         for (; i < entry->num;) {
-            bb = b.getPieces((int)((pc[i] ^ cmirror) >> 3),
-                        (int)(pc[i] & 0x07) - 1);
+            bb = b.getPieces((pc[i] ^ cmirror) >> 3,
+                             (pc[i] & 0x07) - 1);
             do {
                 p[i++] = bitScanForward(bb) ^ mirror;
                 bb &= bb-1;
@@ -250,7 +250,7 @@ static int probe_dtz_table(Board &b, int wdl, int *success) {
             bside = (b.getPlayerToMove() == WHITE);
         } else {
             cmirror = mirror = 0;
-            bside = !(b.getPlayerToMove() == WHITE);
+            bside = b.getPlayerToMove() != WHITE;
         }
     } else {
         cmirror = b.getPlayerToMove() == WHITE ? 0 : 8;
@@ -259,15 +259,15 @@ static int probe_dtz_table(Board &b, int wdl, int *success) {
     }
 
     if (!ptr->has_pawns) {
-        struct DTZEntry_piece *entry = (struct DTZEntry_piece *)ptr;
+        auto *entry = (struct DTZEntry_piece *)ptr;
         if ((entry->flags & 1) != bside && !entry->symmetric) {
             *success = -1;
             return 0;
         }
         ubyte *pc = entry->pieces;
         for (i = 0; i < entry->num;) {
-            uint64_t bb = b.getPieces((int)((pc[i] ^ cmirror) >> 3),
-                        (int)(pc[i] & 0x07) - 1);
+            uint64_t bb = b.getPieces((pc[i] ^ cmirror) >> 3,
+                                      (pc[i] & 0x07) - 1);
             do {
                 p[i++] = bitScanForward(bb);
                 bb &= bb-1;
@@ -282,9 +282,9 @@ static int probe_dtz_table(Board &b, int wdl, int *success) {
         if (!(entry->flags & pa_flags[wdl + 2]) || (wdl & 1))
             res *= 2;
     } else {
-        struct DTZEntry_pawn *entry = (struct DTZEntry_pawn *)ptr;
+        auto *entry = (struct DTZEntry_pawn *)ptr;
         int k = entry->file[0].pieces[0] ^ cmirror;
-        uint64_t bb = b.getPieces((int)(k >> 3), (int)(k & 0x07) - 1);
+        uint64_t bb = b.getPieces(k >> 3, (k & 0x07) - 1);
         i = 0;
         do {
             p[i++] = bitScanForward(bb) ^ mirror;
@@ -297,8 +297,8 @@ static int probe_dtz_table(Board &b, int wdl, int *success) {
         }
         ubyte *pc = entry->file[f].pieces;
         for (; i < entry->num;) {
-            bb = b.getPieces((int)((pc[i] ^ cmirror) >> 3),
-                    (int)(pc[i] & 0x07) - 1);
+            bb = b.getPieces((pc[i] ^ cmirror) >> 3,
+                             (pc[i] & 0x07) - 1);
             do {
                 p[i++] = bitScanForward(bb) ^ mirror;
                 bb &= bb-1;
@@ -647,9 +647,9 @@ int root_probe(Board *b, MoveList &rootMoves, ScoreList &scores, int &TBScore) {
     // score to show how close it is to winning or losing.
     // NOTE: int(PawnValueEg) is used as scaling factor in score_to_uci().
     if (wdl == 1 && dtz <= 100)
-        TBScore = (int) (((200 - dtz - cnt50) * int(PIECE_VALUES[EG][PAWNS])) / 200);
+        TBScore = ((200 - dtz - cnt50) * PIECE_VALUES[EG][PAWNS]) / 200;
     else if (wdl == -1 && dtz >= -100)
-        TBScore = -(int) (((200 + dtz - cnt50) * int(PIECE_VALUES[EG][PAWNS])) / 200);
+        TBScore = -(((200 + dtz - cnt50) * PIECE_VALUES[EG][PAWNS]) / 200);
 
     // Now be a bit smart about filtering out moves.
     size_t j = 0;

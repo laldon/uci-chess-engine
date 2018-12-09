@@ -42,16 +42,16 @@ Score MOBILITY[5][28];
 char manhattanDistance[64][64], kingDistance[64][64];
 
 struct EvalDebug {
-    int totalEval;
-    int totalMg, totalEg;
-    int totalMaterialMg, totalMaterialEg;
-    int totalImbalanceMg, totalImbalanceEg;
-    Score whitePsqtScore, blackPsqtScore;
-    Score whiteMobilityScore, blackMobilityScore;
-    int whiteKingSafety, blackKingSafety;
-    Score whitePieceScore, blackPieceScore;
-    Score whiteThreatScore, blackThreatScore;
-    Score whitePawnScore, blackPawnScore;
+    int totalEval{};
+    int totalMg{}, totalEg{};
+    int totalMaterialMg{}, totalMaterialEg{};
+    int totalImbalanceMg{}, totalImbalanceEg{};
+    Score whitePsqtScore{}, blackPsqtScore{};
+    Score whiteMobilityScore{}, blackMobilityScore{};
+    int whiteKingSafety{}, blackKingSafety{};
+    Score whitePieceScore{}, blackPieceScore{};
+    Score whiteThreatScore{}, blackThreatScore{};
+    Score whitePawnScore{}, blackPawnScore{};
 
     EvalDebug() {
         clear();
@@ -141,7 +141,7 @@ struct EvalDebug {
 
     // Scales the internal score representation into centipawns
     int S(int v) {
-        return (int) (v * 100 / PIECE_VALUES[EG][PAWNS]);
+        return v * 100 / PIECE_VALUES[EG][PAWNS];
     }
 };
 
@@ -151,7 +151,7 @@ EvalDebug evalDebugStats;
 
 
 void initEvalTables() {
-    #define E(mg, eg) ((Score) ((((int32_t) eg) << 16) + ((int32_t) mg)))
+    #define E(mg, eg) ((Score) ((((int32_t) (eg)) << 16) + ((int32_t) mg)))
     for (int pieceType = PAWNS; pieceType <= KINGS; pieceType++) {
         for (int sq = 0; sq < 32; sq++) {
             int r = sq / 4;

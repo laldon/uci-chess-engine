@@ -36,7 +36,7 @@
  */
 struct TwoFoldStack {
 public:
-    uint64_t keys[256];
+    uint64_t keys[256]{};
     int rootEnd;
     int length;
 
@@ -44,7 +44,7 @@ public:
         rootEnd = 0;
         length = 0;
     }
-    ~TwoFoldStack() {}
+    ~TwoFoldStack() = default;
 
     void push(uint64_t pos) {
         keys[length] = pos;
