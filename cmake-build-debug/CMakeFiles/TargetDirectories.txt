@@ -1,3 +1,0 @@
-C:/laser_dev/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/laser_dev/cmake-build-debug/CMakeFiles/laser_dev.dir
-C:/laser_dev/cmake-build-debug/CMakeFiles/rebuild_cache.dir
