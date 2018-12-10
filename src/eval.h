@@ -240,10 +240,10 @@ constexpr int OWN_OPP_IMBALANCE[2][5][5] = {
 //       Opponent's
 //    P   N   B   R   Q
     { 0},                   // Own pawns
-    { 3,  0},               // Own knights
-    { 2, -6,  0},           // Own bishops
-    { 0, -5,-16,  0},       // Own rooks
-    {-3,-20,-12,-26,  0}    // Own queens
+    { 3,  1},               // Own knights
+    { 2, -6,  1},           // Own bishops
+    { 0, -5,-16,  1},       // Own rooks
+    {-3,-20,-12,-26,  1}    // Own queens
 },
 {
     { 0},                   // Own pawns
