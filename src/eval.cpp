@@ -303,7 +303,7 @@ int Eval::evaluate(Board &b) {
         for (int oppID = PAWNS; oppID <= ownID; oppID++) {
             imbalanceValue[MG] += OWN_OPP_IMBALANCE[MG][ownID][oppID] * pieceCounts[WHITE][ownID] * pieceCounts[BLACK][oppID];
             imbalanceValue[EG] += OWN_OPP_IMBALANCE[EG][ownID][oppID] * pieceCounts[WHITE][ownID] * pieceCounts[BLACK][oppID];
-			if (ownID != oppID) {
+            if (ownID != oppID) {
                 imbalanceValue[MG] -= OWN_OPP_IMBALANCE[MG][ownID][oppID] * pieceCounts[BLACK][ownID] * pieceCounts[WHITE][oppID];
                 imbalanceValue[EG] -= OWN_OPP_IMBALANCE[EG][ownID][oppID] * pieceCounts[BLACK][ownID] * pieceCounts[WHITE][oppID];
             }
