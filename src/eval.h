@@ -239,7 +239,7 @@ constexpr int OWN_OPP_IMBALANCE[2][5][5] = {
 {
 //       Opponent's
 //    P   N   B   R   Q
-    { 1},                   // Own pawns
+    { 0},                   // Own pawns
     { 3,  1},               // Own knights
     { 2, -6,  1},           // Own bishops
     { 0, -5,-16,  1},       // Own rooks
@@ -247,10 +247,10 @@ constexpr int OWN_OPP_IMBALANCE[2][5][5] = {
 },
 {
     { 0},                   // Own pawns
-    { 5,  0},               // Own knights
-    { 3, -3,  0},           // Own bishops
-    { 3,-11,-14,  0},       // Own rooks
-    {24,  0,  8, 27,  0}    // Own queens
+    { 5,  1},               // Own knights
+    { 3, -3,  1},           // Own bishops
+    { 3,-11,-14,  1},       // Own rooks
+    {24,  0,  8, 27,  1}    // Own queens
 }
 };
 
