@@ -299,7 +299,7 @@ int Eval::evaluate(Board &b) {
     // Own-opp imbalance terms
     // Gain OWN_OPP_IMBALANCE[][ownID][oppID] centipawns for each ownID piece
     // you have and each oppID piece the opponent has
-    for (int ownID = KNIGHTS; ownID <= QUEENS; ownID++) {
+    for (int ownID = PAWNS; ownID <= QUEENS; ownID++) {
         for (int oppID = PAWNS; oppID <= ownID; oppID++) {
             imbalanceValue[MG] += OWN_OPP_IMBALANCE[MG][ownID][oppID] * pieceCounts[WHITE][ownID] * pieceCounts[BLACK][oppID];
             imbalanceValue[EG] += OWN_OPP_IMBALANCE[EG][ownID][oppID] * pieceCounts[WHITE][ownID] * pieceCounts[BLACK][oppID];
