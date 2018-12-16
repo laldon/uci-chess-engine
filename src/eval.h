@@ -359,7 +359,7 @@ constexpr int SAFE_CHECK_BONUS[4] = {56, 25, 65, 53};
 
 // Minor pieces
 // A penalty for each own pawn that is on a square of the same color as your bishop
-constexpr Score BISHOP_PAWN_COLOR_PENALTY = E(-2, -3);
+constexpr Score BISHOP_PAWN_COLOR_PENALTY = E(-3, -3);
 constexpr Score BISHOP_RAMMED_PAWN_COLOR_PENALTY = E(-9, -9);
 // Minors shielded by own pawn in front
 constexpr Score SHIELDED_MINOR_BONUS = E(16, 0);
@@ -409,8 +409,8 @@ constexpr Score DOUBLED_PENALTY = E(-3, -18);
 constexpr Score ISOLATED_PENALTY = E(-18, -11);
 constexpr Score ISOLATED_SEMIOPEN_PENALTY = E(-3, -9);
 // Backward pawns
-constexpr Score BACKWARD_PENALTY = E(-9, -8);
-constexpr Score BACKWARD_SEMIOPEN_PENALTY = E(-17, -11);
+constexpr Score BACKWARD_PENALTY = E(-10, -8);
+constexpr Score BACKWARD_SEMIOPEN_PENALTY = E(-18, -11);
 // Undefended pawns that are not backwards or isolated
 constexpr Score UNDEFENDED_PAWN_PENALTY = E(-6, -3);
 // Pawn phalanxes
