@@ -664,6 +664,12 @@ int Eval::evaluate(Board &b) {
         // Loose minors
         if (uint64_t lminors = (pieces[color][KNIGHTS] | pieces[color][BISHOPS]) & HALF[color^1] & ~(ei.fullAttackMaps[color] | ei.attackMaps[color][PAWNS]))
             threatScore[color] += LOOSE_MINOR * count(lminors);
+
+        // Penalty for our mobility squares that are restricted by the opponent
+        // Idea from Stockfish
+        uint64_t restrictedMobility = ei.fullAttackMaps[color] & ~ei.attackMaps[color][PAWNS] & ~ei.doubleAttackMaps[color]
+                                   & (ei.fullAttackMaps[color^1] | ei.attackMaps[color^1][PAWNS]);
+        threatScore[color] += RESTRICTED_MOBILITY * count(restrictedMobility);
     }
 
     valueMg += decEvalMg(threatScore[WHITE]) - decEvalMg(threatScore[BLACK]);
