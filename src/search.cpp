@@ -476,7 +476,7 @@ void getBestMove(const Board *b, TimeManagement *timeParams, MoveList legalMoves
 
         if (bestMove == prevBest) {
             pvStreak++;
-            timeChangeFactor *= 0.92;
+            timeChangeFactor *= 0.95;
         }
         else {
             prevBest = bestMove;
@@ -487,7 +487,7 @@ void getBestMove(const Board *b, TimeManagement *timeParams, MoveList legalMoves
 
         // Adjust search time based on PV and score behavior
         if (threadID == 0 && timeParams->searchMode == TIME)
-            timeChangeFactor *= 0.92 + std::min(7.0, sqrt(abs(prevScore - bestScore))) / 25.0;
+            timeChangeFactor *= 0.95 + std::min(7.0, sqrt(abs(prevScore - bestScore))) / 25.0;
         else
             timeChangeFactor = 1.0;
 
