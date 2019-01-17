@@ -145,14 +145,14 @@ constexpr int pieceSquareTable[2][6][32] = {
  -5,  0,  0,  0
 },
 { // Queens
--25,-21,-15, -5,
--16,-21, -7, -6,
- -8, -3,  0,  2,
- -5, -3, -3, -3,
- -3,  0, -3, -3,
- -6,  5, -1, -2,
--12,  1,  3,  2,
--16,-16,-10,  2
+-22,-18,-12, -2,
+-13,-18, -4, -3,
+ -5,  0,  3,  5,
+ -2,  0,  0,  0,
+  0,  3,  0,  0,
+ -3,  8,  2,  1,
+ -9,  4,  6,  5,
+-13,-13, -7,  5
 },
 { // Kings
 -37,-32,-34,-45,
@@ -262,7 +262,7 @@ constexpr int KNIGHT_CLOSED_BONUS[2] = {2, 8};
 // SPACE_BONUS[0][1] = behind own pawn, center files
 // SPACE_BONUS[1][0] = in front of opp pawn, not center files
 // SPACE_BONUS[1][1] = in front of opp pawn, center files
-constexpr int SPACE_BONUS[2][2] = {{14, 35}, {2, 14}};
+constexpr int SPACE_BONUS[2][2] = {{15, 35}, {3, 15}};
 
 // Mobility tables
 constexpr int mobilityTable[2][5][28] = {
@@ -273,7 +273,7 @@ constexpr int mobilityTable[2][5][28] = {
 { // Bishops
 -51,-26, -3,  8, 19, 23, 26, 29, 31, 33, 39, 43, 49, 55},
 { // Rooks
--90,-47,-19, -5,  0,  5,  7, 12, 15, 18, 20, 22, 24, 26, 28},
+-90,-50,-20, -5,  0,  5,  7, 12, 15, 18, 20, 22, 24, 26, 28},
 { // Queens
 -100,-80,-60,-39,-30,-18,-11, -8, -5, -3, -1,  2,  5,  7,
  10, 12, 15, 17, 19, 21, 23, 25, 26, 27, 29, 30, 31, 32},
@@ -298,14 +298,14 @@ constexpr int mobilityTable[2][5][28] = {
 };
 
 // Value of each square in the extended center in cp
-constexpr Score EXTENDED_CENTER_VAL = E(3, 0);
+constexpr Score EXTENDED_CENTER_VAL = E(3, 1);
 // Additional bonus for squares in the center four squares in cp, in addition
 // to EXTENDED_CENTER_VAL
-constexpr Score CENTER_BONUS = E(4, 0);
+constexpr Score CENTER_BONUS = E(4, 1);
 
 // King safety
 // The value of having 0, 1, and both castling rights
-constexpr int CASTLING_RIGHTS_VALUE[3] = {0, 24, 66};
+constexpr int CASTLING_RIGHTS_VALUE[3] = {0, 25, 66};
 // The value of a pawn shield per pawn. First rank value is used for the
 // penalty when the pawn is missing.
 constexpr int PAWN_SHIELD_VALUE[4][8] = {
@@ -355,16 +355,16 @@ constexpr int KS_NO_BISHOP_DEFENDER = 15;
 constexpr int KS_BISHOP_PRESSURE = 8;
 constexpr int KS_NO_QUEEN = -44;
 constexpr int KS_BASE = -18;
-constexpr int SAFE_CHECK_BONUS[4] = {56, 25, 65, 53};
+constexpr int SAFE_CHECK_BONUS[4] = {56, 26, 65, 53};
 
 // Minor pieces
 // A penalty for each own pawn that is on a square of the same color as your bishop
 constexpr Score BISHOP_PAWN_COLOR_PENALTY = E(-2, -3);
-constexpr Score BISHOP_RAMMED_PAWN_COLOR_PENALTY = E(-9, -9);
+constexpr Score BISHOP_RAMMED_PAWN_COLOR_PENALTY = E(-9,-10);
 // Minors shielded by own pawn in front
 constexpr Score SHIELDED_MINOR_BONUS = E(16, 0);
 // A bonus for strong outpost knights
-constexpr Score KNIGHT_OUTPOST_BONUS = E(31, 23);
+constexpr Score KNIGHT_OUTPOST_BONUS = E(31, 22);
 constexpr Score KNIGHT_OUTPOST_PAWN_DEF_BONUS = E(26, 8);
 constexpr Score KNIGHT_POTENTIAL_OUTPOST_BONUS = E(10, 15);
 constexpr Score KNIGHT_POTENTIAL_OUTPOST_PAWN_DEF_BONUS = E(13, 12);
