@@ -168,8 +168,7 @@ void MoveOrder::scoreQuiets() {
             scores.add(ScoredMove(m, SCORE_QUIET_MOVE
                 + searchParams->historyTable[color][pieceID][endSq]
                 + ((ssi->counterMoveHistory != nullptr) ? ssi->counterMoveHistory[pieceID][endSq] : 0)
-                + ((ssi->followupMoveHistory != nullptr) ? ssi->followupMoveHistory[pieceID][endSq] : 0)
-                + ((ssi->supraMoveHistory != nullptr) ? ssi->supraMoveHistory[pieceID][endSq] : 0)));
+                + ((ssi->followupMoveHistory != nullptr) ? ssi->followupMoveHistory[pieceID][endSq] : 0)));
         }
     }
     scoreSize = scores.size();
@@ -242,11 +241,6 @@ void MoveOrder::updateHistories(Move bestMove) {
             historyChange * ssi->followupMoveHistory[pieceID][endSq] / resetFactor;
         ssi->followupMoveHistory[pieceID][endSq] += historyChange;
     }
-    if (ssi->supraMoveHistory != nullptr) {
-        ssi->supraMoveHistory[pieceID][endSq] -=
-            historyChange * ssi->supraMoveHistory[pieceID][endSq] / resetFactor;
-        ssi->supraMoveHistory[pieceID][endSq] += historyChange;
-    }
 
     // If we searched only the hash move, return to prevent crashes
     if (index <= 0)
@@ -280,11 +274,6 @@ void MoveOrder::updateHistories(Move bestMove) {
                 ssi->followupMoveHistory[pieceID][endSq] -=
                     historyChange * ssi->followupMoveHistory[pieceID][endSq] / resetFactor;
                 ssi->followupMoveHistory[pieceID][endSq] -= historyChange;
-            }
-            if (ssi->supraMoveHistory != nullptr) {
-                ssi->supraMoveHistory[pieceID][endSq] -=
-                    historyChange * ssi->supraMoveHistory[pieceID][endSq] / resetFactor;
-                ssi->supraMoveHistory[pieceID][endSq] -= historyChange;
             }
         }
     }
