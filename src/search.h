@@ -86,6 +86,7 @@ struct SearchStackInfo {
     int staticEval;
     int **counterMoveHistory;
     int **followupMoveHistory;
+    int **supraMoveHistory;
 };
 
 void getBestMoveThreader(const Board *b, TimeManagement *timeParams, MoveList *movesToSearch);

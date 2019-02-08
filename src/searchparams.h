@@ -29,6 +29,7 @@ struct SearchParameters {
     int captureHistory[2][6][6][64];
     int **counterMoveHistory[6][64];
     int **followupMoveHistory[6][64];
+    int **supraMoveHistory[6][64];
 
     SearchParameters() {
         for (int i = 0; i < 6; i++) {
@@ -44,6 +45,14 @@ struct SearchParameters {
                 followupMoveHistory[i][j] = new int *[6];
                 for (int k = 0; k < 6; k++) {
                     followupMoveHistory[i][j][k] = new int[64];
+                }
+            }
+        }
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 64; j++) {
+                supraMoveHistory[i][j] = new int *[6];
+                for (int k = 0; k < 6; k++) {
+                    supraMoveHistory[i][j][k] = new int[64];
                 }
             }
         }
@@ -66,6 +75,14 @@ struct SearchParameters {
                     delete[] followupMoveHistory[i][j][k];
                 }
                 delete[] followupMoveHistory[i][j];
+            }
+        }
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 64; j++) {
+                for (int k = 0; k < 6; k++) {
+                    delete[] supraMoveHistory[i][j][k];
+                }
+                delete[] supraMoveHistory[i][j];
             }
         }
     }
@@ -109,6 +126,15 @@ struct SearchParameters {
                 for (int k = 0; k < 6; k++) {
                     for (int l = 0; l < 64; l++)
                         followupMoveHistory[i][j][k][l] = 0;
+                }
+            }
+        }
+
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 64; j++) {
+                for (int k = 0; k < 6; k++) {
+                    for (int l = 0; l < 64; l++)
+                        supraMoveHistory[i][j][k][l] = 0;
                 }
             }
         }

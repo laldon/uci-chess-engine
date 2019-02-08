@@ -583,6 +583,8 @@ void getBestMoveAtDepth(const Board *b, const MoveList *legalMoves, int depth, i
         (ssi+1)->counterMoveHistory = searchParams->counterMoveHistory[pieceID][endSq];
         (ssi+1)->followupMoveHistory = nullptr;
         (ssi+2)->followupMoveHistory = searchParams->followupMoveHistory[pieceID][endSq];
+        (ssi+2)->supraMoveHistory = nullptr;
+        (ssi+3)->supraMoveHistory = searchParams->supraMoveHistory[pieceID][endSq];
 
         // Root LMR
         unsigned int movesSearched = i - startMove + 1;
@@ -850,6 +852,7 @@ int PVS(Board &b, int depth, int alpha, int beta, int threadID, bool isCutNode, 
         b.doNullMove();
         (ssi+1)->counterMoveHistory = nullptr;
         (ssi+2)->followupMoveHistory = nullptr;
+        (ssi+3)->supraMoveHistory = nullptr;
         int nullScore = -PVS(b, depth-1-reduction, -beta, -alpha, threadID, !isCutNode, ssi+1, &line);
 
         // Undo the null move
@@ -958,7 +961,8 @@ int PVS(Board &b, int depth, int alpha, int beta, int threadID, bool isCutNode, 
         if (moveIsPrunable
          && pruneDepth <= 2
          && ((ssi->counterMoveHistory != nullptr) ? ssi->counterMoveHistory[pieceID][endSq] : 0) < 0
-         && ((ssi->followupMoveHistory != nullptr) ? ssi->followupMoveHistory[pieceID][endSq] : 0) < 0)
+         && ((ssi->followupMoveHistory != nullptr) ? ssi->followupMoveHistory[pieceID][endSq] : 0) < 0
+         && ((ssi->supraMoveHistory != nullptr) ? ssi->supraMoveHistory[pieceID][endSq] : 0) < 0)
             continue;
 
 
@@ -1010,7 +1014,8 @@ int PVS(Board &b, int depth, int alpha, int beta, int threadID, bool isCutNode, 
             // Reduce more for moves with poor history
             int historyValue = searchParams->historyTable[color][pieceID][endSq]
                 + ((ssi->counterMoveHistory != nullptr) ? ssi->counterMoveHistory[pieceID][endSq] : 0)
-                + ((ssi->followupMoveHistory != nullptr) ? ssi->followupMoveHistory[pieceID][endSq] : 0);
+                + ((ssi->followupMoveHistory != nullptr) ? ssi->followupMoveHistory[pieceID][endSq] : 0)
+                + ((ssi->supraMoveHistory != nullptr) ? ssi->supraMoveHistory[pieceID][endSq] : 0);
             reduction -= historyValue / 512;
             // Reduce more for expected cut nodes
             if (isCutNode)
@@ -1060,6 +1065,8 @@ int PVS(Board &b, int depth, int alpha, int beta, int threadID, bool isCutNode, 
                     [b.getPieceOnSquare(color, getStartSq(seMove))][getEndSq(seMove)];
                 (ssi+2)->followupMoveHistory = searchParams->followupMoveHistory
                     [b.getPieceOnSquare(color, getStartSq(seMove))][getEndSq(seMove)];
+                (ssi+3)->supraMoveHistory = searchParams->supraMoveHistory
+                    [b.getPieceOnSquare(color, getStartSq(seMove))][getEndSq(seMove)];
 
                 // The window is lowered more for higher depths
                 int SEWindow = hashScore - depth;
@@ -1087,6 +1094,7 @@ int PVS(Board &b, int depth, int alpha, int beta, int threadID, bool isCutNode, 
 
         (ssi+1)->counterMoveHistory = searchParams->counterMoveHistory[pieceID][endSq];
         (ssi+2)->followupMoveHistory = searchParams->followupMoveHistory[pieceID][endSq];
+        (ssi+3)->supraMoveHistory = searchParams->supraMoveHistory[pieceID][endSq];
 
         // Null-window search, with re-search if applicable
         if (movesSearched > 1) {
