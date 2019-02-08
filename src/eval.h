@@ -391,6 +391,7 @@ constexpr Score ROOK_QUEEN_THREAT = E(-78, -41);
 
 constexpr Score LOOSE_PAWN = E(-14, -4);
 constexpr Score LOOSE_MINOR = E(-12, -5);
+constexpr Score RESTRICTED_MOBILITY = E( -2,  0);
 
 // Pawn structure
 // Passed pawns
